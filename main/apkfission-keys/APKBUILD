@@ -1,0 +1,29 @@
+# Contributor: Kiyoshi Aman <kiyoshi.aman+adelie@gmail.com>
+# Maintainer: Kiyoshi Aman <kiyoshi.aman+adelie@gmail.com>
+pkgname=apkfission-keys
+pkgver=1.0
+pkgrel=0
+pkgdesc="Public keys for APK Fission packages"
+url="https://apkfissio.net"
+arch="noarch"
+license="MIT"
+depends=""
+makedepends=""
+install=""
+subpackages=""
+source="
+	packages@pleroma.apkfission.net-5ac04808.rsa.pub
+	packages@pleroma.apkfission.net-5ac0b300.rsa.pub
+	"
+builddir="$srcdir/"
+# No tests.
+options="!check"
+
+package() {
+	cd "$builddir"
+	install -D -m644 packages@pleroma.apkfission.net-5ac04808.rsa.pub "$pkgdir"/etc/apk/keys/packages@pleroma.apkfission.net-5ac04808.rsa.pub
+	install -D -m644 packages@pleroma.apkfission.net-5ac0b300.rsa.pub "$pkgdir"/etc/apk/keys/packages@pleroma.apkfission.net-5ac0b300.rsa.pub
+}
+
+sha512sums="03efe69584d0db6ae484a0cfff01fc8558f9a4c01cb3d09b5f0d8f52096c41881c082bd0a49791fdc41649b04ae085bf510460db11532b37cd07da9f605ce364  packages@pleroma.apkfission.net-5ac04808.rsa.pub
+74a1f9c861c44bd3ec35da21fbfc695947edaab0651b6195e81b0f165bdd0376e14fdc48c632f8cc15394f4450ebbef6e33bd3138ca3642c907b2604ef127ec7  packages@pleroma.apkfission.net-5ac0b300.rsa.pub"
