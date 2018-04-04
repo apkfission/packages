@@ -2,7 +2,7 @@
 # Maintainer: Kiyoshi Aman <kiyoshi.aman+adelie@gmail.com>
 pkgname=msttcorefonts
 pkgver=1
-pkgrel=0
+pkgrel=1
 pkgdesc="Microsoft core font suite"
 url="http://www.microsoft.com/typography/fonts/web.aspx"
 arch="noarch"
@@ -22,10 +22,10 @@ build() {
 
 package() {
 	cd "$builddir"
-	for i in *.TTF; do \
+	for i in *.TTF *.ttf; do \
 		install -D -m644 "$i" "$pkgdir"/usr/share/fonts/truetype/"$i"; \
 	done
 	install -D -m644 Licen.TXT "$pkgdir"/usr/share/doc/licenses/msttcorefonts.txt
 }
 
-sha512sums="1b3b9ac2015691b7c6d14a8032102a7b9e515da1e2b0838c1f60c16dc00899339315cb743407a74c68cc4968fa36222dcc7c759e30b9730aa6903f78d219eccc  msttcorefonts.tar.xz"
+sha512sums="974863acd730519c5db6b1d5d3d8a373c93dd7d6d28b0fa3e8e96b28614c00398730618f30746eb6df5df33fe05b76f07c0be9b7f5c082be191b28363d94793b  msttcorefonts.tar.xz"
