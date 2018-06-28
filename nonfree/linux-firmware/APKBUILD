@@ -1,8 +1,9 @@
 # Contributor: William Pitcock <nenolod@dereferenced.org>
 # Contributor: Oliver Smith <ollieparanoid@bitmessage.ch>
-# Maintainer: Natanael Copa <ncopa@alpinelinux.org>
+# Contributor: Natanael Copa <ncopa@alpinelinux.org>
+# Maintainer: Kiyoshi Aman <kiyoshi.aman+adelie@gmail.com>
 pkgname=linux-firmware
-pkgver=20180110
+pkgver=20180620
 pkgrel=0
 pkgdesc="firmware files for linux"
 #url="http://git.kernel.org/?p=linux/kernel/git/dwmw2/linux-firmware.git;a=summary"
@@ -11,12 +12,11 @@ arch="all"
 license="custom:multiple"
 makedepends=
 install=""
-replaces="linux-grsec linux-vserver"
 options="!strip !check"
-source="http://dev.alpinelinux.org/archive/$pkgname/$pkgname-${pkgver}.tar.gz"
+source="https://distfiles.apkfission.net/src/$pkgname/$pkgname-${pkgver}.tar.gz"
 
 _giturl="git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git"
-_upload=dev.alpinelinux.org:/archive/$pkgname/
+_upload=okami.aerdan.org:/srv/www/distfiles.apkfission.net/src/$pkgname/
 
 _builddir="$srcdir"/$pkgname-$pkgver
 
@@ -92,4 +92,4 @@ other() {
     mv "$pkgdir"/lib "$subpkgdir"/
 }
 
-sha512sums="26f3bad130ddcce0d91b6e474f3a7990f590f556d6aacfe808c34483904610e8269c25197658d953510588638c7bd696e17b440e097537904b4b33c4d1fcb416  linux-firmware-20180110.tar.gz"
+sha512sums="c78c9bf292e998bba2313c03307fd1376df261e4ff8d3ff8a2982f750b917134cf3f0b2af7d24ae4500620285d99eb3ed748ae0b119deebfb3db68b26a504896  linux-firmware-20180620.tar.gz"
