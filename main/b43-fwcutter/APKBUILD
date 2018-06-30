@@ -1,0 +1,34 @@
+# Contributor: Kiyoshi Aman <kiyoshi.aman+adelie@gmail.com>
+# Maintainer: Kiyoshi Aman <kiyoshi.aman+adelie@gmail.com>
+pkgname=b43-fwcutter
+pkgver=019
+pkgrel=0
+pkgdesc="Utility for extracting b43 firmware from Broadcom's wl driver"
+url="http://linuxwireless.sipsolutions.net/en/users/Drivers/b43/#b43-fwcutter"
+arch="all"
+license="BSD-2-Clause"
+depends=""
+depends_dev=""
+makedepends="$depends_dev"
+install=""
+source="http://bues.ch/b43/fwcutter/b43-fwcutter-$pkgver.tar.bz2"
+sha512sums="2a439d1583d1ee7b13dd6a7526b78b216073e044c3934adf6615b8d2ca9a4b8c74db9791182d27baf1690b5c5ff6ce1a9c8dd4fb796e47939d055fef5bb37960  b43-fwcutter-019.tar.bz2"
+builddir="$srcdir/b43-fwcutter-$pkgver"
+# no tests
+options="!check"
+
+build() {
+	cd "$builddir"
+	make PREFIX=/usr
+}
+
+check() {
+	cd "$builddir"
+	make check
+}
+
+package() {
+	cd "$builddir"
+	make PREFIX="$pkgdir/usr" install
+}
+
