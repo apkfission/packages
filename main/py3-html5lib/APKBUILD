@@ -1,0 +1,30 @@
+# Contributor: Kiyoshi Aman <kiyoshi.aman+adelie@gmail.com>
+# Maintainer: Kiyoshi Aman <kiyoshi.aman+adelie@gmail.com>
+pkgname=py3-html5lib
+pkgver=1.0.1
+pkgrel=0
+pkgdesc="HTML5 parser library for Python"
+url="https://html5lib.readthedocs.io/"
+arch="all"
+license="MIT"
+depends="python3"
+makedepends=""
+source="https://files.pythonhosted.org/packages/85/3e/cf449cf1b5004e87510b9368e7a5f1acd8831c2d6691edd3c62a0823f98f/html5lib-$pkgver.tar.gz"
+builddir="$srcdir/html5lib-$pkgver"
+
+build() {
+	cd "$builddir"
+	python3 setup.py build
+}
+
+check() {
+	cd "$builddir"
+	python3 setup.py check
+}
+
+package() {
+	cd "$builddir"
+	python3 setup.py install --prefix=/usr --root="$pkgdir"
+}
+
+sha512sums="35939b4450893864da04e735ee5e0addacf1dd34bae6a6909c76572abf6bfded446a78a713dfde91c1485ba45867d7abeb6a45cf0545c16ea968707be7de5dd2  html5lib-1.0.1.tar.gz"
