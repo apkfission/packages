@@ -1,0 +1,30 @@
+# Contributor: Kiyoshi Aman <kiyoshi.aman+adelie@gmail.com>
+# Maintainer: Kiyoshi Aman <kiyoshi.aman+adelie@gmail.com>
+pkgname=py3-tinycss2
+pkgver=0.6.1
+pkgrel=0
+pkgdesc="Low-level CSS parser for Python"
+url="https://tinycss2.readthedocs.io/en/latest/"
+arch="all"
+license="BSD-3-Clause"
+depends="python3"
+makedepends=""
+source="py3-tinycss2-$pkgver.tar.gz::https://github.com/Kozea/tinycss2/archive/v$pkgver.tar.gz"
+builddir="$srcdir/tinycss2-$pkgver"
+
+build() {
+	cd "$builddir"
+	python3 setup.py build
+}
+
+check() {
+	cd "$builddir"
+	python3 setup.py check
+}
+
+package() {
+	cd "$builddir"
+	python3 setup.py install --prefix=/usr --root="$pkgdir"
+}
+
+sha512sums="d335b6bcff61144f7a3edad06b1623424e91121f4290d52b03c3bc9cc31f22d9f45a671ac6ebe575abf21cbda1b485d516209c0461c699fd6614c5074b26c3f8  py3-tinycss2-0.6.1.tar.gz"
