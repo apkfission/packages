@@ -1,0 +1,70 @@
+# Contributor: Bartłomiej Piotrowski <bpiotrowski@alpinelinux.org>
+# Contributor: Timo Teräs <timo.teras@iki.fi>
+# Contributor: Valery Kartel <valery.kartel@gmail.com>
+# Contributor: Leonardo Arena <rnalrd@alpinelinux.org>
+# Maintainer: Max Rees <maxcrees@me.com>
+pkgname=hplip
+pkgver=3.18.9
+pkgrel=0
+pkgdesc="Drivers for HP printers and scanners"
+url="https://developers.hp.com/hp-linux-imaging-and-printing"
+arch="all"
+options="!check"  # No test suite.
+license="GPL-2.0+ AND MIT AND BSD-3-Clause AND GPL-2.0+ WITH sane-exception AND Public-Domain AND GPL-2.0+ WITH HP-OpenSSL-exception AND Python-2.0 AND BSD-2-Clause AND ISC AND GPL-2.0-only AND Custom AND IJG"
+depends=""
+makedepends="libjpeg-turbo-dev net-snmp-dev cups-dev libusb-dev sane-dev"
+subpackages="$pkgname-doc $pkgname-libs sane-backend-hpaio:sane"
+source="https://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz
+	fix-includes.patch
+	remove-binary-blob.patch"
+
+prepare() {
+	default_prepare
+	update_config_sub
+	update_config_guess
+}
+
+build() {
+	cd "$builddir"
+	./configure \
+		--build=$CBUILD \
+		--host=$CHOST \
+		--prefix=/usr \
+		--sysconfdir=/etc \
+		--mandir=/usr/share/man \
+		--localstatedir=/var \
+		--with-docdir=/usr/share/doc/$pkgname \
+		--enable-lite-build \
+		--disable-doc-build \
+		--disable-gui-build \
+		--disable-fax-build \
+		--disable-dbus-build \
+		--enable-cups-drv-install \
+		--enable-cups-ppd-install
+	make
+}
+
+package() {
+	cd "$builddir"
+	make -j1 DESTDIR="$pkgdir" install
+	rm -rf "$pkgdir"/usr/bin \
+		"$pkgdir"/etc/udev \
+		"$pkgdir"/etc/sane.d \
+		"$pkgdir"/usr/share/hal \
+		"$pkgdir"/usr/lib/systemd \
+		"$pkgdir"/usr/lib/cups/filter/pstotiff
+	install -Dm755 prnt/filters/hpps "$pkgdir"/usr/lib/cups/filter/hpps
+}
+
+sane() {
+	depends="sane"
+	pkgdesc="SANE backend for HP multi-function peripherals"
+	provides="$pkgname-sane"
+	mkdir -p "$subpkgdir"/usr/lib "$subpkgdir"/etc/sane.d/dll.d
+	mv "$pkgdir"/usr/lib/sane "$subpkgdir"/usr/lib
+	echo "hpaio" > "$subpkgdir"/etc/sane.d/dll.d/hpaio
+}
+
+sha512sums="f09f0c511f1b76c7f4971d80b456f0ececb08ebb67534da544c04e7edbf3bf6a19ebc63ebfa4ef1694270d924175235584c97a7760a81161991a3da646624ef7  hplip-3.18.9.tar.gz
+3a7d93d5c52c5988314029e85a72cab4a76c38fab8e36e5c9d4affd31b4ab968423c3af4bac78fac69ad41f4fcade1766dcd0537c3878c8df5ded789878ab3ec  fix-includes.patch
+d1b843ee3a725df8c66979fc40748db8f824d6c3d92fbaf7ec35dd2aac0845f41e4af7f1ba0a69e30e452c5621c56736e967993b84831edce04e6449ff5b63db  remove-binary-blob.patch"

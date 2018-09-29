@@ -1,0 +1,110 @@
+Taken from http://slackware.cs.utah.edu/pub/slackware/slackware-current/source/ap/hplip/hplip.remove-ImageProcessor.diff.gz
+
+--- hplip-3.18.9/Makefile.in	2018-09-20 23:59:34.000000000 -0400
++++ hplip-3.18.9/Makefile.in	2018-10-30 01:23:08.120007229 -0400
+@@ -103,7 +103,7 @@ DIST_COMMON = $(am__configure_deps) \
+ 
+ # ip library
+ @HPLIP_BUILD_TRUE@am__append_12 = libhpip.la
+-@FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@am__append_13 = prnt/drv/hpijs.drv.in.template prnt/drv/hpcups.drv.in.template prnt/hpcups/libImageProcessor-x86_64.so prnt/hpcups/libImageProcessor-x86_32.so
++@FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@am__append_13 = prnt/drv/hpijs.drv.in.template prnt/drv/hpcups.drv.in.template
+ @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@am__append_14 = dat2drv.py install.py  hplip-install init-suse-firewall init-iptables-firewall class_rpm_build.sh hplipclassdriver.spec createPPD.sh Makefile_dat2drv hpijs-drv
+ @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@am__append_15 = scan/sane/hpaio.desc \
+ @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@	installer/text_install.py \
+@@ -723,8 +723,7 @@ am__dist_locatedriver_DATA_DIST = locate
+ am__dist_models_DATA_DIST = data/models/models.dat
+ am__dist_noinst_DATA_DIST = prnt/drv/hpijs.drv.in.template \
+ 	prnt/drv/hpcups.drv.in.template \
+-	prnt/hpcups/libImageProcessor-x86_64.so \
+-	prnt/hpcups/libImageProcessor-x86_32.so scan/sane/hpaio.desc \
++	scan/sane/hpaio.desc \
+ 	installer/text_install.py data/localization/hplip_de.ts \
+ 	data/localization/hplip_es.ts data/localization/hplip_fr.ts \
+ 	data/localization/hplip_it.ts data/localization/hplip_pt.ts \
+@@ -4669,7 +4668,7 @@ libapdk_la_CFLAGS = $(libapdk_la_CXXFLAG
+ @HPCUPS_INSTALL_TRUE@	prnt/hpcups/ImageProcessor.h
+ 
+ @HPCUPS_INSTALL_TRUE@hpcups_CXXFLAGS = $(APDK_ENDIAN_FLAG) $(DBUS_CFLAGS)
+-@HPCUPS_INSTALL_TRUE@hpcups_LDADD = -L./prnt/hpcups/ -ljpeg -ldl -lImageProcessor -lcups -lcupsimage -lz $(DBUS_LIBS)
++@HPCUPS_INSTALL_TRUE@hpcups_LDADD = -L./prnt/hpcups/ -ljpeg -ldl -lcups -lcupsimage -lz $(DBUS_LIBS)
+ #else
+ #hpcupsdir = $(cupsfilterdir)
+ #hpcups_PROGRAMS = hpcups
+@@ -9380,16 +9379,6 @@ uninstall-am: uninstall-apparmor_abstrac
+ 
+ 
+ install-data-hook:
+-@HPLIP_BUILD_TRUE@	if [ \( "$(UNAME)" = "x86_64" -a  -d "$(libdir)/" \) ]; then \
+-@HPLIP_BUILD_TRUE@		cp prnt/hpcups/libImageProcessor-x86_64.so $(libdir)/ ; \
+-@HPLIP_BUILD_TRUE@		chmod 775 $(libdir)/libImageProcessor-x86_64.so ; \
+-@HPLIP_BUILD_TRUE@		ln -sf $(libdir)/libImageProcessor-x86_64.so $(libdir)/libImageProcessor.so ; \
+-@HPLIP_BUILD_TRUE@	fi; \
+-@HPLIP_BUILD_TRUE@	if [ \( \( "$(UNAME)" = "i686" -o "$(UNAME)" = "i386" \) -a -d "$(libdir)/" \) ]; then \
+-@HPLIP_BUILD_TRUE@		cp prnt/hpcups/libImageProcessor-x86_32.so $(libdir)/ ; \
+-@HPLIP_BUILD_TRUE@		chmod 775 $(libdir)/libImageProcessor-x86_32.so ; \
+-@HPLIP_BUILD_TRUE@		ln -sf $(libdir)/libImageProcessor-x86_32.so $(libdir)/libImageProcessor.so ; \
+-@HPLIP_BUILD_TRUE@	fi
+ #	   If scanner build, add hpaio entry to sane dll.conf.
+ @HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@	if [ "$(scan_build)" = "yes" ]; then \
+ @HPLIP_BUILD_TRUE@@HPLIP_CLASS_DRIVER_FALSE@	   $(mkinstalldirs) $(DESTDIR)/etc/sane.d; \
+--- hplip-3.18.9/prnt/hpcups/HPCupsFilter.cpp	2018-09-20 23:56:25.000000000 -0400
++++ hplip-3.18.9/prnt/hpcups/HPCupsFilter.cpp	2018-10-30 01:24:05.730008260 -0400
+@@ -31,7 +31,6 @@
+ \*****************************************************************************/
+ 
+ #include "HPCupsFilter.h"
+-#include "ImageProcessor.h"
+ 
+ #include <signal.h>
+ #include <sys/wait.h>
+@@ -637,15 +636,10 @@ int HPCupsFilter::processRasterData(cups
+ 
+ 
+     sprintf(hpPreProcessedRasterFile, "%s/hp_%s_cups_SwapedPagesXXXXXX",CUPS_TMP_DIR, m_JA.user_name);
+-    image_processor_t* imageProcessor = imageProcessorCreate();
+ 
+     while (cupsRasterReadHeader2(cups_raster, &cups_header))
+     {
+ 
+-        IMAGE_PROCESSOR_ERROR result = imageProcessorStartPage(imageProcessor, &cups_header);
+-        if (result != IPE_SUCCESS){
+-            dbglog("DEBUG: imageProcessorStartPage failed result = %d\n", result);
+-        }
+ 
+         current_page_number++;
+ 
+@@ -745,12 +739,6 @@ int HPCupsFilter::processRasterData(cups
+             color_raster = rgbRaster;
+             black_raster = kRaster;
+ 
+-            result = imageProcessorProcessLine(imageProcessor, m_pPrinterBuffer, cups_header.cupsBytesPerLine);
+-            if (result != IPE_SUCCESS){
+-                dbglog("DEBUG: imageProcessorProcessLine failed result = %d\n", result);
+-            }
+-
+-
+             if ((y == 0) && !is_ljmono) {
+                 //For ljmono, make sure that first line is not a blankRaster line.Otherwise printer
+                 //may not skip blank lines before actual data
+@@ -780,12 +768,6 @@ int HPCupsFilter::processRasterData(cups
+             }
+         }  // for() loop end
+ 
+-        result = imageProcessorEndPage(imageProcessor);
+-        if (result != IPE_SUCCESS){
+-                dbglog("DEBUG: imageProcessorEndPage failed result = %d\n", result);
+-        }
+-
+-
+         m_Job.NewPage();
+         if (err != NO_ERROR) {
+             break;
+@@ -800,8 +782,6 @@ int HPCupsFilter::processRasterData(cups
+         rgbRaster = NULL;
+     }
+ 
+-    imageProcessorDestroy(imageProcessor);
+-
+     unlink(hpPreProcessedRasterFile);
+     return ret_status;
+ }

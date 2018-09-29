@@ -1,0 +1,35 @@
+diff -ru hplip-3.16.10.orig/protocol/discovery/mdns.c hplip-3.16.10/protocol/discovery/mdns.c
+--- hplip-3.16.10.orig/protocol/discovery/mdns.c	2016-10-21 13:48:34.000000000 +0300
++++ hplip-3.16.10/protocol/discovery/mdns.c	2016-11-03 14:41:38.828298853 +0200
+@@ -24,10 +24,15 @@
+  Author: Sanjay Kumar
+  \*****************************************************************************/
+ 
+-//#include <stdio.h>
++#include <stdio.h>
++#include <ctype.h>
++#include <fcntl.h>
++#include <unistd.h>
+ #include <string.h>
+ #include <syslog.h>
++#include <malloc.h>
+ #include <sys/socket.h>
++#include <sys/select.h>
+ #include <netinet/in.h>
+ #include <netdb.h>
+ #include <arpa/inet.h>
+--- hplip-3.18.9/scan/sane/OrbliteScan/LinuxCommon.h	2018-09-20 23:56:44.000000000 -0400
++++ hplip-3.18.9/scan/sane/OrbliteScan/LinuxCommon.h	2018-10-30 01:34:11.970019105 -0400
+@@ -18,10 +18,8 @@ typedef u_int32_t			UInt32;
+ typedef int32_t				SInt32;
+ //typedef unsigned long			UInt32;
+ //typedef signed long			SInt32;
+-typedef __S64_TYPE			SInt64;
+-typedef __U64_TYPE			UInt64;
+-typedef __S64_TYPE			int64_t;
+-typedef __U64_TYPE			uint64_t;
++typedef int64_t			SInt64;
++typedef uint64_t			UInt64;
+ 
+ //typedef unsigned long	ULONG;
+ //typedef void*			LPVOID;
