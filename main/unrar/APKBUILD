@@ -1,0 +1,33 @@
+# Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
+# Contributor: Carlo Landmeter <clandmeter@gmail.com>
+# Maintainer: Dan Theisen <djt@hxx.in>
+pkgname=unrar
+pkgver=5.6.8
+pkgrel=0
+pkgdesc="The RAR uncompression program"
+url="https://www.rarlab.com"
+arch="all"
+options="!check"  # No test suite.
+license="custom:UnRAR"
+depends=""
+makedepends=""
+subpackages="$pkgname-doc"
+source="https://www.rarlab.com/rar/unrarsrc-$pkgver.tar.gz
+	makefile.patch"
+builddir="$srcdir"/$pkgname
+
+build() {
+	cd "$builddir"
+	make CXX="${CXX:-g++}" CXXFLAGS="$CXXFLAGS" \
+		LDFLAGS="$LDFLAGS" STRIP=: -f makefile
+}
+
+package() {
+	cd "$builddir"
+	install -Dm755 unrar "$pkgdir"/usr/bin/unrar
+	install -Dm644 license.txt \
+		"$pkgdir/usr/share/licenses/$pkgname/license.txt"
+}
+
+sha512sums="5410308d7f462824bc10087cdc4515c58aaad776cc09eb6491864a338ae00ff35e3b54d1e7250c0a9576554ea382383155be718a0b95d7af00f27d5df04f4f56  unrarsrc-5.6.8.tar.gz
+7da30d8454a67999e7052ed2c0ee8d29627b1d47bfdf36e8cf1e24f3c36ee58b17f7e7a6505a4b38e0ca3162067368a1bf554829fd824f7c17a3a2a5b35ca29c  makefile.patch"
