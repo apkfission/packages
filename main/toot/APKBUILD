@@ -1,0 +1,28 @@
+# Contributor: Kiyoshi Aman <kiyoshi.aman+adelie@gmail.com>
+# Maintainer: Kiyoshi Aman <kiyoshi.aman+adelie@gmail.com>
+pkgname=toot
+pkgver=0.19.0
+pkgrel=0
+pkgdesc="Python 3 curses-based client for Mastodon API"
+url="https://toot.readthedocs.io"
+arch="all"
+license="GPL-3.0-only"
+depends="python3 py3-beautifulsoup4 py3-requests"
+source="https://github.com/ihabunek/toot/releases/download/$pkgver/toot-$pkgver.tar.gz"
+
+build() {
+	cd "$builddir"
+	python3 setup.py build
+}
+
+check() {
+	cd "$builddir"
+	python3 setup.py check
+}
+
+package() {
+	cd "$builddir"
+	python3 setup.py install --prefix=/usr --root="$pkgdir"
+}
+
+sha512sums="69188df155d2f7d0e118bb2c34a0c641f6ad75357b9e52e5508bc728da3552986ac35ee73c34c06ae0bf8abf14faf876c0ea5944501662450db4128c9cc6eaa8  toot-0.19.0.tar.gz"
