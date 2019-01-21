@@ -1,0 +1,31 @@
+# Contributor: Kiyoshi Aman <kiyoshi.aman+adelie@gmail.com>
+# Maintainer: Kiyoshi Aman <kiyoshi.aman+adelie@gmail.com>
+pkgname=intel-microcode
+pkgver=20180807a
+pkgrel=0
+pkgdesc="Microcode for Intel processors"
+url="https://downloadcenter.intel.com/search?keyword=linux+microcode"
+arch="x86_64"
+options="!check" # No tests
+license="Custom"
+depends=""
+makedepends=""
+source="https://downloadmirror.intel.com/28087/eng/microcode-$pkgver.tgz"
+
+build() {
+	true
+}
+
+package() {
+	for i in "$srcdir"/intel-ucode/*; do
+		install -Dm644 "$i" "$pkgdir"/lib/firmware/intel-ucode
+	done
+	for i in "$srcdir"/intel-ucode-with-caveats/*; do
+		install -Dm644 "$i" "$pkgdir"/lib/firmware/intel-ucode
+	done
+	for i in "$srcdir"/linux-kernel-patches/*; do
+		install -Dm644 "$i" "$pkgdir"/usr/src/intel/kernel-patches
+	done
+}
+
+sha512sums="3cd6794a5ce26e86f7b644e523ba978699316046e593da215b73b17c4b43049ac4a81636e2ce3e727d06c2efbac98657764aa3ff355edb429127585bb49a9b10  microcode-20180807a.tgz"
