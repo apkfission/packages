@@ -1,0 +1,32 @@
+# Contributor: A. Wilcox <awilfox@adelielinux.org>
+# Maintainer: A. Wilcox <awilfox@adelielinux.org>
+pkgname=dzongkha-fonts
+pkgver=2009.09
+pkgrel=0
+pkgdesc="Bhutanese / Dzongkha script typeface"
+url="http://www.dit.gov.bt/downloads"
+arch="noarch"
+options="!check"  # No test suite.
+license="custom"
+depends="fontconfig"
+makedepends=""
+source="$pkgname-$pkgver.zip::https://www.dit.gov.bt/sites/default/files/dzongkhafonts.zip"
+builddir="$srcdir/"
+
+unpack() {
+	cd "$srcdir"
+	local _font
+
+	unzip $pkgname-$pkgver.zip
+
+	for _font in joyig tashi uchen; do
+		unzip $_font.zip
+	done
+}
+
+package() {
+	cd "$builddir"
+	install -m644 -Dt "$pkgdir"/usr/share/fonts/X11/TTF/ *.ttf
+}
+
+sha512sums="0d8019121d60714616ad15d4ca0e8d8c3038a0a60972524640c01ac7834661e981b6efb58b0469287b11712cb29cab2e194652aec0e84e8cc88d1b7395e31b54  dzongkha-fonts-2009.09.zip"
