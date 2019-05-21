@@ -17,14 +17,17 @@ build() {
 }
 
 package() {
-	for i in "$srcdir"/intel-ucode/*; do
-		install -Dm644 "$i" "$pkgdir"/lib/firmware/intel-ucode
+	cd "$srcdir"/intel-ucode
+	for i in *; do
+		install -Dm644 "$i" "$pkgdir"/lib/firmware/intel-ucode/"$i"
 	done
-	for i in "$srcdir"/intel-ucode-with-caveats/*; do
-		install -Dm644 "$i" "$pkgdir"/lib/firmware/intel-ucode
+	cd "$srcdir"/intel-ucode-with-caveats
+	for i in *; do
+		install -Dm644 "$i" "$pkgdir"/lib/firmware/intel-ucode/"$i"
 	done
-	for i in "$srcdir"/linux-kernel-patches/*; do
-		install -Dm644 "$i" "$pkgdir"/usr/src/intel/kernel-patches
+	cd "$srcdir"/linux-kernel-patches
+	for i in *; do
+		install -Dm644 "$i" "$pkgdir"/usr/src/intel/kernel-patches/"$i"
 	done
 }
 
