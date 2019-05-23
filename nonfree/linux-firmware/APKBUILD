@@ -3,7 +3,7 @@
 # Contributor: Natanael Copa <ncopa@alpinelinux.org>
 # Maintainer: Kiyoshi Aman <kiyoshi.aman+adelie@gmail.com>
 pkgname=linux-firmware
-pkgver=20180620
+pkgver=20190523
 pkgrel=0
 pkgdesc="firmware files for linux"
 #url="http://git.kernel.org/?p=linux/kernel/git/dwmw2/linux-firmware.git;a=summary"
@@ -21,14 +21,15 @@ _upload=okami.aerdan.org:/srv/www/distfiles.apkfission.net/src/$pkgname/
 _builddir="$srcdir"/$pkgname-$pkgver
 
 # Put /lib/firmware/* folders in subpackages
-_folders="3com acenic adaptec advansys amd-ucode amdgpu ar3k ath10k ath6k
-    ath9k_htc atmel atusb av7110 bnx2 bnx2x brcm carl9170fw cavium cis cpia2 cxgb3
-    cxgb4 dabusb dsp56k e100 edgeport emi26 emi62 ene-ub6250 ess go7007 i915 imx
-    intel isci kaweth keyspan keyspan_pda korg libertas liquidio matrox mellanox
-    moxa mrvl mwl8k mwlwifi myricom netronome nvidia ositech qca qcom qed qlogic
-    r128 radeon rockchip rsi rtl8192e rtl_bt rtl_nic rtlwifi sb16 slicoss sun sxg
-    tehuti ti-connectivity ti-keystone tigon ttusb-budget ueagle-atm vicam vxge yam
-    yamaha"
+_folders="3com acenic adaptec advansys amd amd-ucode amdgpu ar3k ath10k ath6k
+	ath9k_htc atmel atusb av7110 bnx2 bnx2x brcm cadence carl9170fw cavium
+	cis cpia2 cxgb3 cxgb4 dabusb dpaa2 dsp56k e100 edgeport emi26 emi62
+	ene-ub6250 ess go7007 i915 imx intel isci kaweth keyspan keyspan_pda
+	korg libertas liquidio matrox mediatek mellanox meson microchip moxa
+	mrvl mwl8k mwlwifi myricom netronome nvidia ositech qca qcom qed qlogic
+	r128 radeon rockchip rsi rtl8192e rtl_bt rtl_nic rtlwifi rtw88 sb16
+	slicoss sun sxg tehuti ti-connectivity ti-keystone tigon ttusb-budget
+	ueagle-atm vicam vxge yam yamaha"
 subpackages="$pkgname-other"
 depends="linux-firmware-other"
 for i in $_folders; do
@@ -92,4 +93,4 @@ other() {
     mv "$pkgdir"/lib "$subpkgdir"/
 }
 
-sha512sums="c78c9bf292e998bba2313c03307fd1376df261e4ff8d3ff8a2982f750b917134cf3f0b2af7d24ae4500620285d99eb3ed748ae0b119deebfb3db68b26a504896  linux-firmware-20180620.tar.gz"
+sha512sums="adce4a4a18f4b4be16f81ad78965d99a24ea7c12f0298000509fcc365772595118e64f50633f0573eac768a232ca943d500c98fb9cedfc1a6f5145bb4bcea60c  linux-firmware-20190523.tar.gz"
