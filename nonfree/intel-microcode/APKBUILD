@@ -12,10 +12,6 @@ depends=""
 makedepends=""
 source="https://downloadmirror.intel.com/28087/eng/microcode-$pkgver.tgz"
 
-build() {
-	true
-}
-
 package() {
 	cd "$srcdir"/intel-ucode
 	for i in *; do
