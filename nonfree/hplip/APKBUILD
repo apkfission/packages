@@ -4,7 +4,7 @@
 # Contributor: Leonardo Arena <rnalrd@alpinelinux.org>
 # Maintainer: Max Rees <maxcrees@me.com>
 pkgname=hplip
-pkgver=3.18.9
+pkgver=3.19.11
 pkgrel=0
 pkgdesc="Drivers for HP printers and scanners"
 url="https://developers.hp.com/hp-linux-imaging-and-printing"
@@ -25,7 +25,6 @@ prepare() {
 }
 
 build() {
-	cd "$builddir"
 	./configure \
 		--build=$CBUILD \
 		--host=$CHOST \
@@ -45,7 +44,6 @@ build() {
 }
 
 package() {
-	cd "$builddir"
 	make -j1 DESTDIR="$pkgdir" install
 	rm -rf "$pkgdir"/usr/bin \
 		"$pkgdir"/etc/udev \
@@ -65,6 +63,6 @@ sane() {
 	echo "hpaio" > "$subpkgdir"/etc/sane.d/dll.d/hpaio
 }
 
-sha512sums="f09f0c511f1b76c7f4971d80b456f0ececb08ebb67534da544c04e7edbf3bf6a19ebc63ebfa4ef1694270d924175235584c97a7760a81161991a3da646624ef7  hplip-3.18.9.tar.gz
+sha512sums="f419de0e18937c93c2727f4d8b4f7bf1fcc24961a6b7a0d043ce8341c65d0c0332cd354c0cd907b85bc6ccc7735d23ba5f2c918dba5bf965540291cfcbe032d5  hplip-3.19.11.tar.gz
 3a7d93d5c52c5988314029e85a72cab4a76c38fab8e36e5c9d4affd31b4ab968423c3af4bac78fac69ad41f4fcade1766dcd0537c3878c8df5ded789878ab3ec  fix-includes.patch
 d1b843ee3a725df8c66979fc40748db8f824d6c3d92fbaf7ec35dd2aac0845f41e4af7f1ba0a69e30e452c5621c56736e967993b84831edce04e6449ff5b63db  remove-binary-blob.patch"
