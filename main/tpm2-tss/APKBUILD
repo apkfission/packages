@@ -1,0 +1,36 @@
+# Contributor:
+# Maintainer: Kiyoshi Aman <adelie@aerdan.vulpine.house>
+pkgname=tpm2-tss
+pkgver=2.4.1
+pkgrel=0
+pkgdesc="Software for working with Trusted Platform Modules (TPM)"
+url="https://tpm2-software.github.io/"
+arch="all"
+license="BSD-2-Clause"
+depends=""
+makedepends="curl-dev doxygen json-c-dev openssl-dev"
+checkdepends="cmocka-dev"
+subpackages="$pkgname-dev $pkgname-doc"
+source="https://github.com/tpm2-software/tpm2-tss/releases/download/$pkgver/tpm2-tss-$pkgver.tar.gz"
+
+build() {
+	./configure \
+		--build=$CBUILD \
+		--host=$CHOST \
+		--prefix=/usr \
+		--sysconfdir=/etc \
+		--mandir=/usr/share/man \
+		--localstatedir=/var \
+		--enable-unit
+	make
+}
+
+check() {
+	make check
+}
+
+package() {
+	make DESTDIR="$pkgdir" install
+}
+
+sha512sums="51551d63fa404e23664aaad1b247bd4b1f93812ced1aed144c37f28cdb3adb4e696aa9e93a502c8fa0eb7e9b4376ac9377f0537eb4c717b68c0b014fee7a0643  tpm2-tss-2.4.1.tar.gz"
