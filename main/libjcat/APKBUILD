@@ -1,0 +1,36 @@
+# Contributor:
+# Maintainer: Kiyoshi Aman <adelie@aerdan.vulpine.house>
+pkgname=libjcat
+pkgver=0.1.2
+pkgrel=0
+pkgdesc="Library for working with JSON catalogues"
+url="https://github.com/hughsie/libjcat"
+arch="all"
+license="LGPL-2.1-only"
+depends=""
+makedepends="cmake glib-dev gnutls-dev gnutls-utils gobject-introspection-dev
+	gpgme-dev help2man json-glib-dev meson ninja vala-dev"
+subpackages="$pkgname-dev $pkgname-doc"
+source="libjcat-$pkgver.tar.gz::https://github.com/hughsie/libjcat/archive/$pkgver.tar.gz"
+
+build() {
+	meson \
+		--prefix=/usr \
+		--sysconfdir=/etc \
+		--mandir=/usr/share/man \
+		--localstatedir=/var \
+		--buildtype=release \
+		. output
+	ninja -C output
+}
+
+check() {
+# Add test instructions here.
+:
+}
+
+package() {
+	DESTDIR="$pkgdir" ninja -C output install
+}
+
+sha512sums="9184b761cad5a43ac1f0b0cd4ff54c372ec067785c9b796d813aab6a936fbb522f419e965b70d4d71fbec9f7c25f9d185f957cf1e73cb0e5bdeca9492e11b0fd  libjcat-0.1.2.tar.gz"
