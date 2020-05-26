@@ -1,0 +1,35 @@
+# Contributor:
+# Maintainer: Kiyoshi Aman <adelie@aerdan.vulpine.house>
+pkgname=libxmlb
+pkgver=0.1.15
+pkgrel=0
+pkgdesc="Library for working with binary XML blobs"
+url="https://github.com/hughsie/libxmlb"
+arch="all"
+license="LGPL-2.1-only"
+depends=""
+makedepends="cmake glib-dev gobject-introspection-dev gtk-doc meson ninja"
+subpackages="$pkgname-dev $pkgname-doc"
+source="libxmlb-$pkgver.tar.gz::https://github.com/hughsie/libxmlb/archive/$pkgver.tar.gz"
+
+build() {
+	meson \
+		--prefix=/usr \
+		--sysconfdir=/etc \
+		--mandir=/usr/share/man \
+		--localstatedir=/var \
+		--buildtype=release \
+		. output
+	ninja -C output
+}
+
+check() {
+# Add test instructions here.
+:
+}
+
+package() {
+	DESTDIR="$pkgdir" ninja -C output install
+}
+
+sha512sums="58268b3a690af36c0923afdee3ae58e88bf778eebbc6a439be1bc85ed985efdc20cd7006c976586f7be87310dc091d67dddd370f4bbec58379fc4e7349bfa3d8  libxmlb-0.1.15.tar.gz"
