@@ -1,0 +1,36 @@
+# Contributor:
+# Maintainer: Kiyoshi Aman <adelie@aerdan.vulpine.house>
+pkgname=libgusb
+pkgver=0.3.4
+pkgrel=0
+pkgdesc="GObject wrapper for libusb"
+url="https://github.com/hughsie/libgusb"
+arch="all"
+license="LGPL-2.1-only"
+depends=""
+makedepends="cmake glib-dev gobject-introspection-dev gtk-doc libusb-dev meson
+	ninja vala-dev"
+subpackages="$pkgname-dev $pkgname-doc"
+source="libgusb-$pkgver.tar.gz::https://github.com/hughsie/libgusb/archive/$pkgver.tar.gz"
+
+build() {
+	meson \
+		--prefix=/usr \
+		--sysconfdir=/etc \
+		--mandir=/usr/share/man \
+		--localstatedir=/var \
+		--buildtype=release \
+		. output
+	ninja -C output
+}
+
+check() {
+# Add test instructions here.
+:
+}
+
+package() {
+	DESTDIR="$pkgdir" ninja -C output install
+}
+
+sha512sums="7254751a06ace17157bb5a6a8d5c859d5c4139c02a8d44973de126c716b34e57bf7a3a33f480ca83f0ec03206ac7e68f47104017cd5be6112a8b13c8abae53b3  libgusb-0.3.4.tar.gz"
