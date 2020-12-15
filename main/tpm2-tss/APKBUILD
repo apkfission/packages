@@ -1,7 +1,7 @@
 # Contributor:
 # Maintainer: Kiyoshi Aman <adelie@aerdan.vulpine.house>
 pkgname=tpm2-tss
-pkgver=2.4.1
+pkgver=3.0.3
 pkgrel=0
 pkgdesc="Software for working with Trusted Platform Modules (TPM)"
 url="https://tpm2-software.github.io/"
@@ -34,4 +34,4 @@ package() {
 	make DESTDIR="$pkgdir" install
 }
 
-sha512sums="51551d63fa404e23664aaad1b247bd4b1f93812ced1aed144c37f28cdb3adb4e696aa9e93a502c8fa0eb7e9b4376ac9377f0537eb4c717b68c0b014fee7a0643  tpm2-tss-2.4.1.tar.gz"
+sha512sums="54a926db55790250d69c81ac6e436556072057dd7c610d2718689030287dee69d533d4e04b3325dd73d9fc7635dad0bf0a7bfb082957bb51cb420efdb68efaf8  tpm2-tss-3.0.3.tar.gz"
