@@ -1,8 +1,8 @@
 # Contributor:
 # Maintainer: Kiyoshi Aman <adelie@aerdan.vulpine.house>
 pkgname=libjcat
-pkgver=0.1.2
-pkgrel=1
+pkgver=0.1.4
+pkgrel=0
 pkgdesc="Library for working with JSON catalogues"
 url="https://github.com/hughsie/libjcat"
 arch="all"
@@ -11,8 +11,7 @@ depends=""
 makedepends="cmake glib-dev gnutls-dev gnutls-utils gobject-introspection-dev
 	gpgme-dev help2man json-glib-dev meson ninja vala-dev"
 subpackages="$pkgname-dev $pkgname-doc"
-source="libjcat-$pkgver.tar.gz::https://github.com/hughsie/libjcat/archive/$pkgver.tar.gz
-	CVE-2020-10759.patch"
+source="libjcat-$pkgver.tar.gz::https://github.com/hughsie/libjcat/archive/$pkgver.tar.gz"
 
 # secfixes
 # 0.1.2-r1:
@@ -38,5 +37,4 @@ package() {
 	DESTDIR="$pkgdir" ninja -C output install
 }
 
-sha512sums="9184b761cad5a43ac1f0b0cd4ff54c372ec067785c9b796d813aab6a936fbb522f419e965b70d4d71fbec9f7c25f9d185f957cf1e73cb0e5bdeca9492e11b0fd  libjcat-0.1.2.tar.gz
-6d9f57f30d72f6dae86a6524738383eb138a04b95049d89a226a8daa42f961ccc8da3a2848bec2b112030b160aa12d89cb39743f8ecc2a538bc0a7703a5ab6f1  CVE-2020-10759.patch"
+sha512sums="d58860410ce6e9d35a1eefcd0c6fcd956db42a12a3e8f856e19e3abe8bd6ae304ab7a60e2c1ee28f3848f2fee3b406dd900d7c1024eca5602797711528d3f7e3  libjcat-0.1.4.tar.gz"
