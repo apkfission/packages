@@ -1,7 +1,7 @@
 # Contributor:
 # Maintainer: Kiyoshi Aman <adelie@aerdan.vulpine.house>
 pkgname=libxmlb
-pkgver=0.1.15
+pkgver=0.2.1
 pkgrel=0
 pkgdesc="Library for working with binary XML blobs"
 url="https://github.com/hughsie/libxmlb"
@@ -32,4 +32,4 @@ package() {
 	DESTDIR="$pkgdir" ninja -C output install
 }
 
-sha512sums="58268b3a690af36c0923afdee3ae58e88bf778eebbc6a439be1bc85ed985efdc20cd7006c976586f7be87310dc091d67dddd370f4bbec58379fc4e7349bfa3d8  libxmlb-0.1.15.tar.gz"
+sha512sums="4e082f036eb62626d1724ac5093ad625f9259e9e81aa40d5ca0589a3a72dadd669c0718ff64dcae094973b6c282b6c8f8ce7212b7e47211f320035bb639ec59d  libxmlb-0.2.1.tar.gz"
