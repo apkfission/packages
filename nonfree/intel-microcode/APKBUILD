@@ -1,7 +1,7 @@
 # Contributor: Kiyoshi Aman <kiyoshi.aman+adelie@gmail.com>
 # Maintainer: Kiyoshi Aman <kiyoshi.aman+adelie@gmail.com>
 pkgname=intel-microcode
-pkgver=20191115
+pkgver=20201118
 pkgrel=0
 pkgdesc="Microcode for Intel processors"
 url="https://downloadcenter.intel.com/search?keyword=linux+microcode"
@@ -29,4 +29,4 @@ package() {
 	done
 }
 
-sha512sums="11014c16bde83ac290bc75e458242f5e64b8dffd49de2e938f61f4a09979cd5e80dd1a85d2ccbac067e4398dc3d93ef3583e4aa9b2e545ba46d26e65ec1e2881  microcode-20191115.tar.gz"
+sha512sums="5c54c45c799e3989fce08f69d918c90cdf5f977cc3d30301d177e545bae1a4f385b282c7fc2c43f7464f0fa9426840ee0bc9b248684e66302bbb27c77d5e1d33  microcode-20201118.tar.gz"
