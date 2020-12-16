@@ -1,7 +1,7 @@
 # Contributor:
 # Maintainer: Kiyoshi Aman <adelie@aerdan.vulpine.house>
 pkgname=fwupd
-pkgver=1.4.2
+pkgver=1.5.3
 pkgrel=0
 pkgdesc="Onboard firmware update service for Linux"
 url="https://fwupd.org"
@@ -14,7 +14,8 @@ makedepends="cmake efivar-dev eudev-dev gcab-dev glib-dev gnu-efi
 	libxmlb-dev meson mingw-w64-tools ninja polkit-dev py3-pillow
 	py3-pygobject sqlite-dev tar ttf-liberation tpm2-tss-dev vala-dev"
 subpackages="$pkgname-dev $pkgname-doc $pkgname-lang"
-source="fwupd-$pkgver.tar.gz::https://github.com/fwupd/fwupd/archive/$pkgver.tar.gz"
+source="fwupd-$pkgver.tar.gz::https://github.com/fwupd/fwupd/archive/$pkgver.tar.gz
+	fix-lib64.patch"
 
 build() {
 	PATH="/usr/gnu/bin:$PATH" meson \
@@ -37,4 +38,5 @@ package() {
 	DESTDIR="$pkgdir" ninja -C output install
 }
 
-sha512sums="b092eedf3e5e84874de1fddb7f14ca87975d5895721ac4f87b6c88ec7c7b2367e573b30906588f9adad4cea52da5ebbaaa4a9c38a2273e8f31d26399e719166e  fwupd-1.4.2.tar.gz"
+sha512sums="0c98dd7ca55afeaa4c895a837fc8d6eafcc51d215cc02be659916c7a39ddaa6bc3752adddba8cd2a9c77a4eca707b6c71522645f2847330c1c2ef44910451bf3  fwupd-1.5.3.tar.gz
+ba9459724d65e11856207d14d856f0b18ce3945032438dcb566e4012d007f35a4676eb6e97726690b1da91f237700b6fa06f36d620802c198a247c18b35c194b  fix-lib64.patch"

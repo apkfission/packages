@@ -1,0 +1,23 @@
+From 3f9bf6c1cd7711edc129d6ab6a06490fbf039529 Mon Sep 17 00:00:00 2001
+From: Mario Limonciello <mario.limonciello@dell.com>
+Date: Tue, 15 Dec 2020 20:26:50 -0600
+Subject: [PATCH] trivial: libfwupdplugin: don't fail to set up bwrap if /lib64
+ doesn't exist Fixes: #2690
+
+---
+ libfwupdplugin/fu-common.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/libfwupdplugin/fu-common.c b/libfwupdplugin/fu-common.c
+index 13d97e1e9..307bad48c 100644
+--- a/libfwupdplugin/fu-common.c
++++ b/libfwupdplugin/fu-common.c
+@@ -516,7 +516,7 @@ fu_common_firmware_builder (GBytes *bytes,
+ 	fu_common_add_argv (argv, "--die-with-parent");
+ 	fu_common_add_argv (argv, "--ro-bind /usr /usr");
+ 	fu_common_add_argv (argv, "--ro-bind /lib /lib");
+-	fu_common_add_argv (argv, "--ro-bind /lib64 /lib64");
++	fu_common_add_argv (argv, "--ro-bind-try /lib64 /lib64");
+ 	fu_common_add_argv (argv, "--ro-bind /bin /bin");
+ 	fu_common_add_argv (argv, "--ro-bind /sbin /sbin");
+ 	fu_common_add_argv (argv, "--dir /tmp");
