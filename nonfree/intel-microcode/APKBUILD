@@ -6,7 +6,7 @@ pkgrel=0
 pkgdesc="Microcode for Intel processors"
 url="https://downloadcenter.intel.com/search?keyword=linux+microcode"
 arch="x86_64"
-options="!check" # No tests
+options="!check !dbg" # No tests
 license="Custom:Intel-Microcode"
 depends=""
 makedepends=""
